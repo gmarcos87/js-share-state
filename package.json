@@ -1,0 +1,12 @@
+{
+  "name": "js-shared-state",
+  "version": "1.0.0",
+  "description": "LibreMesh shared-state package in javascript",
+  "main": "index.js",
+  "repository": "https://github.com/gmarcos87/js-shared-state",
+  "author": "Marcos Gutierrez",
+  "license": "GNU",
+  "dependencies": {
+    "blueimp-md5": "^2.10.0"
+  }
+}

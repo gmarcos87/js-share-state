@@ -13,12 +13,29 @@ if (typeof window !== 'undefined') {
 
 const registerNode = function(node) { allNodes.set(node.author, node) }
 
+function compare( a, b ) {
+    if ( a[0] < b[0] ){
+      return -1;
+    }
+    if ( a[0] > b[0] ){
+      return 1;
+    }
+    return 0;
+  }
+
 const logStorageHash = function(node) {
-    console.log('Storage hash: '+ md5(JSON.stringify([...node.storage])) + ' Hostname: ' +node.author)
+    console.log('Storage hash: '+ md5(JSON.stringify([...node.storage].sort(compare))) + ' Hostname: ' +node.author)
 } 
+
+const syncAfterSend = function(node, data) { 
+    if (data){
+        node.merge(data)
+    }
+}
 
 module.exports = {
     registerNode,
     logStorageHash,
-    allNodes
+    allNodes,
+    syncAfterSend
 };

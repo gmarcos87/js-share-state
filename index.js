@@ -12,7 +12,8 @@ const {
 const {
 	registerNode,
 	allNodes,
-	logStorageHash
+	logStorageHash,
+	syncAfterSend
 } = require('./shared-state-registry');
 
 SharedState.prototype.getNodeData = getNodeData;
@@ -24,7 +25,7 @@ SharedState.__proto__.hooks.afterCreate = [
 
 SharedState.__proto__.hooks.afterSync = [
 	...SharedState.__proto__.hooks.afterSync,
-	logStorageHash
+	syncAfterSend
 ]
 
 // Loading fake data
@@ -39,8 +40,15 @@ fakeNodes.forEach(node => {
 // Srtart cron for sync
 setInterval(function () {
 	allNodes.forEach((host, hostname) => {
-		debugger;
 		let nodeNeighbors = getNeighbors(hostname);
 		host.sync(nodeNeighbors);
 	});
+	allNodes.forEach(logStorageHash)
 }, 10000);
+
+//Add some data
+let anaymarcos = allNodes.get('anaymarcos')
+let natisofi = allNodes.get('natisofi')
+
+anaymarcos.insert('213d2s', {hello: 'world'})
+natisofi.insert('53jdd2', {this: 'work'})

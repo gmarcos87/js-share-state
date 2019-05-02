@@ -10,14 +10,14 @@
 		publish: []
 	}
 
-	SharedState.prototype.callHooks =function(hook) {
+	SharedState.prototype.callHooks =function(hook,data) {
 		SharedState.__proto__.hooks[hook].forEach((fun)=>{
-			fun(this)
+			fun(this, data)
 		})
 	}
 
 	SharedState.prototype.insert = function(key, data, timeout) {
-		timeout = timeout || (Date.now() + (60*1000))
+		timeout = timeout || (Date.now() + (60*10000))
 		this.storage.set(
 			key,
 			{
